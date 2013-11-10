@@ -61,11 +61,11 @@ function updateData() {
 
   displayRgbs = rgbs.length > 0 ? rgbs : [[0,0,0]];
   currentRgb = 0;
-  d3.select('#colorBox')
-    .style('background', function(d) {
+  d3.select('#displayRect')
+    .style('fill', function(d) {
       rgb = displayRgbs[currentRgb];
       rgbStr = 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
-      d3.select('#colorBox').style('background', rgbStr);
+      return rgbStr;
     });
   console.log(rgbs);
 }
@@ -126,14 +126,18 @@ var svg = d3.select('#displayContainer')
     .append('svg')
       .attr('height', 1000)
       .attr('id', 'colorBox')
-      .attr('width', 1000)
-      .style('background', '#f00')
-      .on('mouseup', function(d) {
-        currentRgb = currentRgb + 1 >= displayRgbs.length ? 0 : currentRgb + 1;
-        rgb = displayRgbs[currentRgb];
-        rgbStr = 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
-        d3.select(this).style('background', rgbStr);
-      });
+      .attr('width', 1000);
+svg.append('rect')
+  .attr('height', 1000)
+  .attr('id', 'displayRect')
+  .attr('width', 1000)
+  .style('fill', '#f00')
+  .on('mouseup', function(d) {
+    currentRgb = currentRgb + 1 >= displayRgbs.length ? 0 : currentRgb + 1;
+    rgb = displayRgbs[currentRgb];
+    rgbStr = 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
+    d3.select(this).style('fill', rgbStr);
+  });
 
 d3.select('#showText')
   .on('mouseup', function(d) {
