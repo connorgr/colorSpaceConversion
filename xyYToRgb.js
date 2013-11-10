@@ -32,7 +32,9 @@ function updateData() {
   // Tokenize xyY input. First on ';' for each entry, then on ',' for xyY values
   var rawInput = d3.select('#xyYInputList')[0][0].value,
       inputNoWS = rawInput.replace(/\s+/g, '').trim(),
-      xyYs_raw = inputNoWS.split(';').filter(function(d) { return d === '' ? false : true; });
+      xyYs_raw = inputNoWS.split(';').filter(function(d) {
+        return d === '' ? false : true;
+      }),
       xyYs = xyYs_raw.map(function(d) {
             var split = d.split(',');
             if(split.length < 3) {
@@ -81,16 +83,25 @@ function xyYToRgb(x, y, Y) {
       gunPercentG = step3 * yG / step6,
       gunPercentB = 1.0 - gunPercentR - gunPercentG;
 
-  // This makes the chromaticity gray if it is outside the gammut of the monitor
-  if (gunPercentR < 0.0) { gunPercentR = 0.0; console.log('gunPercentR gamut error'); }
-  if (gunPercentG < 0.0) { gunPercentG = 0.0; console.log('gunPercentG gamut error');}
-  if (gunPercentB < 0.0) { gunPercentB = 0.0; console.log('gunPercentB gamut error');}
+  // Make the chromaticity gray if it is outside the gammut of the monitor
+  if (gunPercentR < 0.0) {
+    gunPercentR = 0.0;
+    console.log('gunPercentR gamut error');
+  }
+  if (gunPercentG < 0.0) {
+    gunPercentG = 0.0;
+    console.log('gunPercentG gamut error');
+  }
+  if (gunPercentB < 0.0) {
+    gunPercentB = 0.0;
+    console.log('gunPercentB gamut error');
+  }
 
   var r = Math.pow(10.0,constantR)*Math.pow((gunPercentR * Y),slopeR),
       g = Math.pow(10.0,constantG)*Math.pow((gunPercentG * Y),slopeG),
       b = Math.pow(10.0,constantB)*Math.pow((gunPercentB * Y),slopeB);
 
-  // This makes the color appear black if it is outside the gammut of the monitor
+  // Make the color appear black if it is outside the gammut of the monitor
   if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255) {
     r = 0.;
     g = 0.;
