@@ -121,7 +121,7 @@ var svg = d3.select('#displayContainer')
         currentRgb = currentRgb + 1 >= displayRgbs.length ? 0 : currentRgb + 1;
         rgb = displayRgbs[currentRgb];
         rgbStr = 'rgb('+rgb[0]+','+rgb[1]+','+rgb[2]+')';
-        d3.select('#colorBox').style('background', rgbStr);
+        d3.select(this).style('background', rgbStr);
       });
 
 d3.select('#showText')
