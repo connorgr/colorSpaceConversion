@@ -10,7 +10,7 @@ var constantR = 1.5245,
     constantB = 1.7755,
     slopeB = 0.5365;
 
-// Monitor gun chromaticiites (x and y are from CIE 1931 xyY space)
+// Monitor gun chromaticities (x and y are from CIE 1931 xyY space)
 var xR  = 0.696,
     yR  = 0.317,
 
